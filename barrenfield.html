@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <meta charset="utf-8" />
+       <style>
+           * { padding: 100; margin: 100; }
+           canvas { background: #eee; display: block; margin: 0 auto; }
+       </style>
+   </head>
+   <body>
+ 
+       <canvas id="myCanvas" width="600" height="500"></canvas>
+      
+       <script>
+ 
+           function drawLandscape(){
+ 
+               ctx.beginPath();
+               ctx.rect(25, 25, 550, 550);
+               ctx.fillStyle = "#9b7653";
+               ctx.strokeStyle = "rgba(195,176,145,1)";
+               ctx.fill();
+               ctx.stroke();
+               ctx.closePath();
+ 
+ 
+           }
+ 
+           function drawExit(){
+ 
+               ctx.beginPath();
+               ctx.rect(575,200,5,110);
+               ctx.fillStyle = "#856d4d";
+               ctx.fill();
+               ctx.closePath();
+ 
+               if (charXposition <= 570 && charXposition > 560 && charYposition <= 300 && charYposition > 200) {
+                   window.open("bridge1barren.html", "_self", false);
+               }
+           }
+ 
+           getScript("scripts.js",function(){
+               character()
+           });
+           setInterval(drawLandscape,10);
+           setInterval(drawExit,10);
+ 
+          
+ 
+       </script>
+   </body>
+</html>   
