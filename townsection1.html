@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <meta charset="utf-8" />
+       <style>
+           * { padding: 0; margin: 0; }
+           canvas { background: #eee; display: block; margin: 0 auto; }
+       </style>
+   </head>
+   <body>
+ 
+       <canvas id="myCanvas" width="600" height="1000"></canvas>
+ 
+       <script>
+ 
+           var canvas = document.getElementById("myCanvas");
+           var ctx = canvas.getContext("2d");
+ 
+ 
+           function draw() {
+ 
+               ctx.clearRect(0, 0, canvas.width, canvas.height);
+           }  
+ 
+           var rightPressed = false;
+           var leftPressed = false;
+           var upPressed = false;
+           var downPressed = false;
+ 
+           document.addEventListener("keydown", keyDownHandler, false);
+           document.addEventListener("keyup", keyUpHandler, false);
+ 
+           function keyDownHandler(e) {
+               if (e.key == "Right" || e.key == "ArrowRight") {
+                   rightPressed = true;
+               }
+               else if (e.key == "Left" || e.key == "ArrowLeft") {
+                   leftPressed = true;
+               }
+               else if (e.key == "Up" || e.key == "ArrowUp") {
+                   upPressed = true;
+               }
+               else if (e.key == "Down" || e.key == "ArrowDown") {
+                   downPressed = true;
+               }
+           }
+ 
+           function keyUpHandler(e) {
+               if (e.key == "Right" || e.key == "ArrowRight") {
+                   rightPressed = false;
+               }
+               else if (e.key == "Left" || e.key == "ArrowLeft") {
+                   leftPressed = false;
+               }
+               else if (e.key == "Up" || e.key == "ArrowUp") {
+                   upPressed = false;
+               }
+               else if (e.key == "Down" || e.key == "ArrowDown") {
+                   downPressed = false;
+               }
+           }
+ 
+ 
+           function interactDoor() {
+ 
+               if (charXposition <= doorHeight && charXposition > 0 && charYposition <= 230 && charYposition > 190) {
+                   window.open('bridge1barren.html','_self', false)
+               }
+           }
+ 
+           var charXposition = 100;
+           var charYposition = 200;
+           var charRadius = 20;
+ 
+           function drawCharacter() {
+ 
+               ctx.beginPath();
+               ctx.arc(charXposition, charYposition, charRadius, 0,  Math.PI*2);
+               ctx.fillStyle = "#C68642";
+               ctx.fill();
+               ctx.closePath();
+ 
+               if(rightPressed) {
+                   charXposition += 3;
+                   if (charXposition  + charRadius > canvas.width) {
+                       //unless it is an etrance or exit
+                       charXposition = canvas.width - charRadius;
+                   }
+               }
+ 
+               if (leftPressed) {
+                   charXposition -= 3;
+                   if (charXposition < 0) {
+                       charXposition = charRadius;
+                   }
+               }
+ 
+               if (upPressed) {
+                   charYposition -= 3;
+                   if (charYposition < 0) {
+                       charYposition = charRadius;
+                   }
+               }
+ 
+               if (downPressed) {
+                   charYposition += 3;
+                   if (charYposition - charRadius > canvas.height) {
+                       charYposition = canvas.height - charRadius;
+                   }
+               }
+           }
+ 
+           function character() {
+               // 
+           }
+ 
+           var entrancex = 0;
+           var entrancey = 190;
+           var doorHeight = 5;
+           var doorWidth = 55;
+           var exitx = 10;
+           var exity = 10;
+           var neighborhood = false;
+ 
+           function drawDoors() {
+ 
+               ctx.beginPath();
+               ctx.rect(entrancex,entrancey, doorHeight, doorWidth);
+               ctx.fillStyle = "#faf0e6";
+               ctx.fill();
+               ctx.closePath();
+ 
+               if (neighborhood == true){
+ 
+                   ctx.beginPath();
+                   ctx.rect(exitx,exity, doorHeight, doorWidth);
+                   ctx.fillStyle = "#8b4513";
+                   ctx.fill();
+                   ctx.closePath();
+               }
+ 
+               interactDoor();
+ 
+           }
+ 
+           function drawLandscape() {
+ 
+               ctx.beginPath();
+               ctx.rect( 0, 0, 600, 1000);
+               ctx.fillStyle = "#acbf60" //middle green yellow
+               ctx.fill();
+               ctx.closePath();
+ 
+               ctx.beginPath();
+               ctx.rect( 25, 25, 550, 950);
+               ctx.fillStyle = "#b0c24a" //margharita
+               ctx.fill();
+               ctx.closePath();
+           }
+ 
+           function tavern() {
+ 
+               ctx.beginPath();
+               ctx.rect(400, 20, 200, 200);
+               ctx.fillStyle = "#826644" //raw umber
+               ctx.fill();
+               ctx.closePath();
+ 
+               ctx.beginPath();
+               ctx.rect(415, 30, 175, 175);
+               ctx.fillStyle = "#965a3e" //coconut
+               ctx.fill();
+               ctx.closePath();
+ 
+               ctx.beginPath();
+               ctx.rect(480, 40, 50, 50);
+               ctx.fillStyle = "rgba(185,242,255,0.5)"; //diamond
+               ctx.fill();
+               ctx.closePath();
+ 
+               // tavern door
+ 
+               ctx.beginPath();
+               ctx.rect(400 ,60, doorHeight, (doorWidth*2));
+               ctx.fillStyle = "#704241";
+               ctx.fill();
+               ctx.closePath();
+ 
+               if (charXposition <= 400 && charXposition > 390 && charYposition <= 170 && charYposition > 60) {
+                   window.open('index.html','_self', false)
+               }
+ 
+           }
+ 
+           function cave() {
+ 
+               ctx.beginPath();
+               ctx.rect(0, 700, 1000, 300);
+               ctx.fillStyle = "#757575";
+               ctx.fill();
+               ctx.arc(500, 650, 80, 0, Math.PI*2);
+               ctx.fill();
+               ctx.closePath();
+ 
+               ctx.beginPath();
+               ctx.rect(0,715, 1000, 270);
+               ctx.fillStyle = "#848482";
+               ctx.fill();
+               ctx.closePath();
+ 
+               if (charXposition <= 600 && charXposition > 0 && charYposition <= 1100 && charYposition > 600) {
+                  
+                   ctx.beginPath();
+                   ctx.rect(0, 715, 1000, 270);
+                   ctx.fillStyle = "#666699";
+                   ctx.fill();
+                   ctx.closePath();
+                  
+               }
+ 
+           }
+ 
+           function NPCVillager() {
+ 
+               function drawNPColdmanMain() {
+ 
+                       ctx.beginPath();
+                       ctx.arc(100,100,22,0, Math.PI*2);
+                       ctx.fillStyle="#C68642"
+                       ctx.fill();
+                       ctx.closePath();
+               }
+ 
+               function interactNPC() {
+                   //
+               }
+ 
+               function drawNPCvillager() {
+                   //
+               }
+ 
+               setInterval(drawNPColdmanMain,10);
+               drawNPCvillager();
+               interactNPC();
+           }
+ 
+           function NPCKnight() {
+ 
+           }
+ 
+           function bridgeLevel2() {
+ 
+           }
+ 
+           function bridgeBarrenField() {
+ 
+           }
+ 
+           function bridgeNeighborhood() {
+ 
+           }
+ 
+           function environment() {
+              
+               ctx.beginPath();
+               ctx.rect(100,300,200,200);
+               ctx.fillStyle = "#acbf60"
+               ctx.fill();
+               ctx.closePath();
+ 
+           }
+          
+           setInterval(draw,10);
+           setInterval(drawLandscape, 10);
+           setInterval(environment,10);
+           setInterval(cave,10);
+           setInterval(drawCharacter, 10);
+           setInterval(tavern, 10);
+           setInterval(drawDoors, 10);
+          
+ 
+       </script>
+ 
+   </body>
+</html>
+ 
